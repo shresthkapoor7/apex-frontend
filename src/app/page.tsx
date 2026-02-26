@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Table, Search, Database } from "lucide-react";
 
@@ -24,16 +25,20 @@ export default function LandingPage() {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="font-semibold tracking-tight text-slate-50">
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-semibold tracking-tight text-slate-50"
+          >
+            <Image
+              src="/hill.svg"
+              alt="Apex"
+              width={24}
+              height={16}
+              className="h-4 w-auto"
+            />
             Apex
           </Link>
           <div className="flex items-center gap-3">
-            <Link
-              href="#"
-              className="rounded-md border border-white/10 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/5 hover:text-slate-50"
-            >
-              Sign In
-            </Link>
             <Link
               href="/dashboard"
               className="rounded-md bg-white px-4 py-2 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-200"
@@ -227,7 +232,17 @@ export default function LandingPage() {
                 Contact
               </a>
             </div>
-            <p className="text-sm text-slate-500">Built by Apex</p>
+            <p className="text-sm text-slate-500">
+              Built by{" "}
+              <a
+                href="https://shresth.space/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 transition-colors hover:text-slate-50"
+              >
+                Shresth
+              </a>
+            </p>
           </div>
         </motion.footer>
       </main>

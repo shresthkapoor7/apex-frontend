@@ -11,6 +11,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Apex | Deal Intelligence",
   description: "AI-powered commercial real estate deal intelligence",
+  icons: {
+    icon: "/hill.svg",
+  },
 };
 
 export default function RootLayout({
