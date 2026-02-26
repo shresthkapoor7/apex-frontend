@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Apex — Deal Intelligence Dashboard
+
+AI-powered commercial real estate deal intelligence dashboard built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **UI Components:** shadcn/ui
+- **Data Fetching:** TanStack React Query
+- **PDF Viewer:** react-pdf
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Configure environment (optional):**
+   ```bash
+   cp .env.example .env.local
+   ```
+   Edit `.env.local` to set `NEXT_PUBLIC_API_URL` if using a different backend.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. Open [http://localhost:3000](http://localhost:3000). The app redirects to `/dashboard`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Pages
 
-## Learn More
+- **`/dashboard`** — Portfolio overview with metric cards, deals table, and document upload
+- **`/documents/[id]`** — Document detail with PDF viewer, extracted metrics, risk summary, and Q&A
 
-To learn more about Next.js, take a look at the following resources:
+## API Integration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The frontend expects these backend endpoints:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/documents` | List documents |
+| POST | `/documents` | Upload document (multipart/form-data, `file` field) |
+| GET | `/documents/{id}` | Get document details and metrics |
+| POST | `/documents/{id}/query` | Ask question (JSON body: `{ question: string }`) |
+| GET | `/documents/{id}/file` | Fetch PDF file (optional; if missing, PDF viewer shows error) |
 
-## Deploy on Vercel
+## Design
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Linear-inspired dark theme
+- Neutral slate palette
+- Inter font
+- Enterprise SaaS aesthetic
+- No gradients, tight spacing, subtle borders
