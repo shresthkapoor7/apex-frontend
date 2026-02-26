@@ -52,10 +52,15 @@ export default function DocumentPage() {
     mutationFn: (q: string) => queryDocument(documentId, q),
   });
 
-  const handleAsk = useCallback(() => {
-    if (!question.trim()) return;
-    queryMutation.mutate(question.trim());
-  }, [question, queryMutation]);
+  const handleAsk = useCallback(
+    (value?: string) => {
+      const text = (value ?? question).trim();
+      if (!text || queryMutation.isPending) return;
+      queryMutation.mutate(text);
+      setQuestion("");
+    },
+    [question, queryMutation]
+  );
 
   const handleSourceClick = useCallback((page: number) => {
     setGoToPage(page);
@@ -130,7 +135,7 @@ export default function DocumentPage() {
             />
           )}
         </div>
-        <aside className="flex-[0.4] flex flex-col overflow-auto p-4 gap-4 min-w-0">
+        <aside className="flex-[0.4] flex flex-col overflow-auto p-4 gap-4 min-w-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {doc && (
             <>
               <Card className="border-border/60 shrink-0">
@@ -203,19 +208,25 @@ export default function DocumentPage() {
                       placeholder="e.g. What are the key risks?"
                       value={question}
                       onChange={(e) => setQuestion(e.target.value)}
-                      className="min-h-[72px] resize-none text-sm"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          handleAsk((e.target as HTMLTextAreaElement).value);
+                        }
+                      }}
+                      className="min-h-[72px] resize-none text-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                       disabled={queryMutation.isPending}
                     />
                   </div>
                   <Button
                     size="sm"
-                    onClick={handleAsk}
+                    onClick={() => handleAsk()}
                     disabled={!question.trim() || queryMutation.isPending}
                   >
                     {queryMutation.isPending ? "Asking..." : "Ask"}
                   </Button>
                   {queryMutation.data && (
-                    <div className="flex flex-col gap-2 flex-1 min-h-0 overflow-auto">
+                    <div className="flex flex-col gap-2 flex-1 min-h-0 overflow-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                       <div className="text-sm">
                         <span className="text-muted-foreground text-xs font-medium">Answer</span>
                         <div className="mt-1 leading-relaxed text-sm [&_p]:my-1 [&_strong]:font-semibold [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-4 [&_li]:my-0.5">

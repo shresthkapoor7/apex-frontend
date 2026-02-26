@@ -211,7 +211,7 @@ export default function LandingPage() {
                 Product
               </Link>
               <a
-                href="https://github.com/shresthkapoor7/apex-backend"
+                href="https://github.com/shresthkapoor7/apex-frontend"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 transition-colors hover:text-slate-50"
